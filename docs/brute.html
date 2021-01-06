@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link href="/files/hacker.css" rel="stylesheet">
+    <link href="/files/game.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src='/files/functions.js'></script>
+  <script src='/files/ports.js'></script>
+  <script src='/files/passwords.js'></script>
+
+
+  </head>
+  <body>
+    <div class="container">
+
+    <div class="row" id='points'>
+        <div class="col-lg-12" id='subdomain-selection'>
+
+            <h3>BRUTE FORCE CREDENTIAL STUFFING</h3>
+
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class='col-lg-8 col-lg-offset-2' style='padding-top: 55px;'>
+
+            <textarea class="form-control" rows="3" style='height: 295px; color: #0f0; ' id="terminal" spellcheck="false">Beginning Brute Force Attack...</textarea>
+
+        </div>
+
+
+    </div>
+
+    <script>
+
+
+    var passwordAttempt;
+    var elapsedSeconds = parseInt(getUrlParameter('elapsed'));
+    var passwordCount = parseInt(getUrlParameter('count'));
+
+    var totalTime = elapsedSeconds + passwordCount;
+    $(document).ready(function(){
+
+
+        stuffing(passwordCount);
+
+    });
+
+
+    function stuffing(count){
+        clearTerminal();
+
+        updateTerminal("°º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸" );
+        updateTerminal("Applying Password List ");
+
+        var parray = passwords.split("\n");
+
+        var currentIndex = 0;
+
+        clearInterval(passwordAttempt);
+
+        passwordAttempt = setInterval(function(){
+            var password = parray[Math.floor(Math.random() * parray.length)];
+
+            if (currentIndex < count){
+            
+                updateTerminal(`>> TRYING PASSWORD: ${password}`);
+                currentIndex += 1;
+            }else{
+                clearInterval(passwordAttempt);
+
+                clearTerminal();
+                updateTerminal("██████████████████████████████████████████████████" );
+                updateTerminal(" ");
+                updateTerminal("SUCCESSFUL LOGIN WITH PASSWORD: " + password);
+                updateTerminal(" ");
+                updateTerminal("COMPLETED HACK IN: " + totalTime + " Seconds");
+                updateTerminal(" ");
+                updateTerminal("██████████████████████████████████████████████████" );
+                updateTerminal(" ");
+
+
+            }
+
+
+
+
+        }, 760);
+
+
+    }
+
+
+    </script>
+
+
+
+</div>
+  </body>
+
+
+
+</html>

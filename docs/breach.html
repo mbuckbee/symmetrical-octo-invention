@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link href="/files/hacker.css" rel="stylesheet">
+    <link href="/files/game.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src='/files/functions.js'></script>
+  <script src='/files/ports.js'></script>
+  <script src='/files/passwords.js'></script>
+
+
+  </head>
+  <body>
+    <div class="container">
+
+    <div class="row">
+        <div class="col-lg-12" id=''>
+
+            <h3>CHOOSE YOUR DATABREACH</h3>
+
+        </div>
+
+    </div>
+
+    <div class="row" style="margin-top: 20px">
+
+        <div class='col-lg-4 text-center'>
+            <img src='/images/adobe.jpeg' style='height: 100px;'>
+        </div>
+
+        <div class='col-lg-4 text-center'>
+            <img src='/images/Apollo.webp' style='width: 300px; margin-top: 20px;'>
+        </div>
+
+        <div class='col-lg-4 text-center'>
+            <img src='/images/Zynga.webp' style='height: 100px;'>
+        </div>
+
+    </div>
+
+    <div class="row" style="margin-top: 20px">
+
+        <div class='col-lg-4 text-center'>
+            
+            <h3>
+                152,445,165 Records
+            </h3>
+
+            <h4 style='margin-top: 20px;'>
+                Email addresses, Password hints, Passwords, Usernames
+            </h4>
+
+        </div>
+
+        <div class='col-lg-4 text-center'>
+            <h3>125,929,660 Records</h3>
+            <h4 style='margin-top: 20px;'>Email addresses, Employers, Geographic locations, Job titles, Names, Phone numbers, Salutations, Social media profiles</h4>
+        </div>
+
+
+        <div class='col-lg-4 text-center'>
+
+            <h3>172,869,660 Records</h3>
+            <h4 style='margin-top: 20px;'>Email addresses, Passwords, Phone numbers, Usernames</h4>
+        
+        </div>
+
+    </div>
+
+    
+    <div class="row" style="margin-top: 20px">
+
+        <div class='col-lg-4 text-center'>
+            <a href='/brute.html?breach=adobe' id='adobe-button' class='btn btn-lg btn-primary' style='margin-top: 10px;'>Choose</a>
+        </div>
+
+        <div class='col-lg-4 text-center'>
+            <a href='/brute.html?breach=apollo' id='apollo-button' class='btn btn-lg btn-primary' style='margin-top: 10px;'>Choose</a>
+        </div>
+
+
+        <div class='col-lg-4 text-center'>
+            <a href='/brute.html?breach=zynga' id='zynga-button' class='btn btn-lg btn-primary' style='margin-top: 10px;'>Choose</a>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+    <script>
+
+    var elapsedSeconds = parseInt(getUrlParameter('elapsed'));
+
+    // PAGE TIMING
+    var pageTimerInterval;
+    var pageSeconds = 0;
+    
+    // Global Timer
+    var pageTimerInterval = setInterval(function(){
+        pageSeconds += 1;
+        $("#adobe-button").attr("href", `/brute.html?elapsed=${pageSeconds + elapsedSeconds}&count=35`);
+        $("#apollo-button").attr("href", `/brute.html?elapsed=${pageSeconds + elapsedSeconds}&count=25`);
+        $("#zynga-button").attr("href", `/brute.html?elapsed=${pageSeconds + elapsedSeconds}&count=50`);
+    }, 1000);
+
+
+    </script>
+
+
+
+</div>
+  </body>
+
+
+
+</html>

@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link href="/files/hacker.css" rel="stylesheet">
+    <link href="/files/game.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src='/files/functions.js'></script>
+  <script src='/files/ports.js'></script>
+  <script src='/files/passwords.js'></script>
+
+
+  </head>
+  <body>
+    <div class="container">
+
+    <div class="row" id='points'>
+        <div class="col-lg-4" id='subdomain-selection'>
+
+            <h3>SCANNING FOR SUBDOMAINS</h3>
+
+            <div class="list-group" id='subdomain-list'>
+
+            </div>
+
+
+        </div>
+
+
+        <div class='col-lg-8' style='padding-top: 55px;'>
+
+
+            <textarea class="form-control" rows="3" style='height: 295px; color: #0f0;' id="terminal" spellcheck="false">Awaiting Subdomain Selection...</textarea>
+
+            <center>
+                <a href='/breach.html' id='brute-force-button' style='height: 40px; width: 400px; font-size: 20px; margin-top: 20px;' class='btn btn-xl btn-primary' style='margin-top: 10px;'>>> Launch Brute Force Attack <<</a>
+            </center>
+        </div>
+
+
+    </div>
+
+    <script>
+
+    var portScanInterval;
+    
+    // PAGE TIMING
+    var pageTimerInterval;
+    var pageSeconds = 0;
+
+    // Global Timer
+    var pageTimerInterval = setInterval(function(){
+        pageSeconds += 1;
+        $("#brute-force-button").attr("href", `/breach.html?elapsed=${pageSeconds}`)
+    }, 1000);
+
+
+    $(document).ready(function(){
+
+        // Subdomain Population
+        var subArray = ["auth", "okta","sharepoint", "mx", "www","build", "webmail"];
+        var shuffledSubArray = shuffleArray(subArray);
+        var currentIndex = 0;
+
+        var milliseconds = randomIntFromInterval(100,200);
+
+        console.log(milliseconds);
+
+        var subDomainDisplayInterval = setInterval(function(){
+
+            if (currentIndex === 7){
+                    clearInterval(subDomainDisplayInterval);
+            }else{
+                var fullDomain = shuffledSubArray[currentIndex] + '.baronis.com';
+                $('#subdomain-list').append(`<a id='${fullDomain}' class="list-group-item subdomain">${fullDomain}</a>`);
+                currentIndex += 1;
+            }
+
+        }, milliseconds);
+
+
+    });
+
+    $(document).on("click", ".subdomain", function(){
+            
+            $('.subdomain').removeClass('active');
+            $(this).addClass('active');
+
+            var subdomainSelected = $(this).text();
+            var count = 0;
+
+            if (subdomainSelected == "auth.baronis.com"){
+                count = 30;
+            }else{
+                count = 45;
+            }
+
+            portScan(subdomainSelected, count);
+
+            console.log(subdomainSelected);
+    });
+
+    function portScan(domain, count){
+        clearTerminal();
+
+        updateTerminal("°º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸" );
+        updateTerminal("Port Scanning " + domain );
+
+
+
+        var currentIndex = 0;
+
+        clearInterval(portScanInterval);
+
+        portScanInterval = setInterval(function(){
+
+            if (currentIndex < count){
+                // Create array of object keys, ["311", "310", ...]
+                const keys = Object.keys(ports)
+
+                // Generate random index based on number of keys
+                const randIndex = Math.floor(Math.random() * keys.length)
+
+                // Select a key from the array of keys using the random index
+                const randKey = keys[randIndex]
+
+                // Use the key to get the corresponding name from the "names" object
+                const item = ports[randKey]
+
+                console.log(item);
+
+                updateTerminal(`>> PORT: ${randKey} - ${item['description']}`);
+                currentIndex += 1;
+            }else{
+                clearInterval(portScanInterval);
+
+                clearTerminal();
+                updateTerminal("██████████████████████████████████████████████████" );
+                updateTerminal(" ");
+                updateTerminal("VULNERABLE SERVICE FOUND ON: " + domain);
+                updateTerminal(" ");
+                updateTerminal("██████████████████████████████████████████████████" );
+                updateTerminal(" ");
+
+                $("#brute-force-button").css("display", "block");
+
+            }
+
+
+
+
+        }, 760);
+
+
+    }
+
+
+    </script>
+
+
+
+</div>
+  </body>
+
+
+
+</html>

@@ -1,0 +1,8 @@
+## For Local Dev
+
+bundle exec jekyll server -l
+
+
+## For Deploy
+
+bundle exec jekyll build -d docs
